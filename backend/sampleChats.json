@@ -1,0 +1,5 @@
+[
+  { "role": "user", "content": "I feel lonely at night." },
+  { "role": "user", "content": "I like calm conversations, not jokes." },
+  { "role": "user", "content": "Work stress really affects my sleep." }
+]
