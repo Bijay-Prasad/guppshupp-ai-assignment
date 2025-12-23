@@ -9,6 +9,29 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "GuppShupp – AI Lifelong Friend",
   description: "A companion that listens, remembers, and adapts to you.",
+  icons: {
+    icon: [
+      {
+        url: "/favicon.ico",
+        type: "image/x-icon",
+      },
+      {
+        url: "/favicon-16x16.png",
+        type: "image/png",
+        sizes: "16x16",
+      },
+      {
+        url: "/favicon-32x32.png",
+        type: "image/png",
+        sizes: "32x32",
+      },
+      // {
+      //   url: '/icon-dark-32x32.png',
+      //   media: '(prefers-color-scheme: dark)',
+      // },
+    ],
+    apple: { url: "/apple-touch-icon.png", type: "image/png" },
+  },
 };
 
 export default function RootLayout({
