@@ -3,15 +3,15 @@ import express from "express";
 import cors from "cors";
 import { extractMemory } from "./memoryExtractor.js";
 import { generateResponse } from "./responseGenerator.js";
-// import chats from "./sampleChats.json" assert { type: "json" };
-
 
 import fs from "fs";
 const chats = JSON.parse(fs.readFileSync(new URL("./sampleChats.json", import.meta.url), "utf8"));
 
 const app = express();
-app.use(cors({ origin: "http://localhost:3000" }));
+app.use(cors({ origin: process.env.FRONTEND_URL }));
 app.use(express.json());
+
+const PORT = process.env.PORT || 5000;
 
 let memoryCache = null;
 
@@ -30,4 +30,4 @@ app.post("/chat", async (req, res) => {
     res.json({ reply });
 });
 
-app.listen(5000, () => console.log("Server running on http://localhost:5000"));
+app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
