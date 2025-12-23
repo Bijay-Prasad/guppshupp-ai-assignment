@@ -25,7 +25,7 @@ const PERSONALITIES = [
 
 export function ChatInterface() {
   const [messages, setMessages] = useState<Message[]>([
-    { role: "assistant", content: "Hi! I'm GuppShupp, your lifelong friend. How are you feeling today?" }
+    { role: "assistant", content: "Hi! I'm GuppShupp, your lifelong friend. How are you feeling today?", personality: "mentor" }
   ])
   const [input, setInput] = useState("")
   const [loading, setLoading] = useState(false)
@@ -82,56 +82,58 @@ export function ChatInterface() {
       <CardContent className="flex-1 p-0 overflow-hidden relative">
         <ScrollArea ref={scrollRef} className="h-full p-4">
           <div className="space-y-4">
-            {messages.map((msg, i) => (
-              <div
-                key={i}
-                className={cn(
-                  "flex w-full gap-2 animate-in slide-in-from-bottom-2 fade-in duration-300",
-                  msg.role === "user" ? "justify-end" : "justify-start"
-                )}
-              >
-                {msg.role === "assistant" && (
-                  <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
-                    <Bot className="h-5 w-5 text-primary" />
-                  </div>
-                )}
+            {messages.map((msg, i) => {
+              const personalityData = msg.personality ? PERSONALITIES.find(p => p.id === msg.personality) : null;
+
+              return (
                 <div
+                  key={i}
                   className={cn(
-                    "max-w-[80%] rounded-2xl px-4 py-2.5 text-sm shadow-sm",
-                    msg.role === "user"
-                      ? "bg-primary text-primary-foreground rounded-tr-none"
-                      : "bg-muted/80 backdrop-blur-sm text-foreground rounded-tl-none"
+                    "flex w-full gap-2 animate-in slide-in-from-bottom-2 fade-in duration-300",
+                    msg.role === "user" ? "justify-end" : "justify-start"
                   )}
                 >
-                  <div className="markdown-content">
-                    <ReactMarkdown
-                      components={{
-                        p: ({ children }: any) => <p className="mb-2 last:mb-0 leading-relaxed">{children}</p>,
-                        ul: ({ children }: any) => <ul className="list-disc pl-4 mb-2 space-y-1">{children}</ul>,
-                        ol: ({ children }: any) => <ol className="list-decimal pl-4 mb-2 space-y-1">{children}</ol>,
-                        li: ({ children }: any) => <li>{children}</li>,
-                        strong: ({ children }: any) => <span className="font-semibold">{children}</span>,
-                      }}
-                    >
-                      {msg.content}
-                    </ReactMarkdown>
-                  </div>
-                  {msg.personality && PERSONALITIES.map(p => (
-                    p.id === msg.personality && (
-                      <div key={p.id} className="mt-2 flex items-center gap-1.5 text-[11px] font-medium opacity-80">
-                        <p.icon className={cn("h-3 w-3", p.color)} />
-                        <span>{p.label}</span>
+                  {msg.role === "assistant" && (
+                    <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+                      <Bot className="h-5 w-5 text-primary" />
+                    </div>
+                  )}
+                  <div
+                    className={cn(
+                      "max-w-[80%] rounded-2xl px-4 py-2.5 text-sm shadow-sm",
+                      msg.role === "user"
+                        ? "bg-primary text-primary-foreground rounded-tr-none"
+                        : "bg-muted/80 backdrop-blur-sm text-foreground rounded-tl-none"
+                    )}
+                  >
+                    <div className="markdown-content">
+                      <ReactMarkdown
+                        components={{
+                          p: ({ children }: any) => <p className="mb-2 last:mb-0 leading-relaxed">{children}</p>,
+                          ul: ({ children }: any) => <ul className="list-disc pl-4 mb-2 space-y-1">{children}</ul>,
+                          ol: ({ children }: any) => <ol className="list-decimal pl-4 mb-2 space-y-1">{children}</ol>,
+                          li: ({ children }: any) => <li>{children}</li>,
+                          strong: ({ children }: any) => <span className="font-semibold">{children}</span>,
+                        }}
+                      >
+                        {msg.content}
+                      </ReactMarkdown>
+                    </div>
+                    {personalityData && (
+                      <div className="mt-2 flex items-center gap-1.5 text-[11px] font-medium opacity-80">
+                        <personalityData.icon className={cn("h-3 w-3", personalityData.color)} />
+                        <span>{personalityData.label}</span>
                       </div>
-                    )
-                  ))}
-                </div>
-                {msg.role === "user" && (
-                  <div className="h-8 w-8 rounded-full bg-primary flex items-center justify-center shrink-0">
-                    <User className="h-5 w-5 text-primary-foreground" />
+                    )}
                   </div>
-                )}
-              </div>
-            ))}
+                  {msg.role === "user" && (
+                    <div className="h-8 w-8 rounded-full bg-primary flex items-center justify-center shrink-0">
+                      <User className="h-5 w-5 text-primary-foreground" />
+                    </div>
+                  )}
+                </div>
+              )
+            })}
             {loading && (
               <div className="flex w-full gap-2 justify-start animate-pulse">
                 <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center">
