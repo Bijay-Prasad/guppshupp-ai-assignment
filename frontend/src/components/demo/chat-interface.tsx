@@ -64,7 +64,7 @@ export function ChatInterface() {
   }
 
   return (
-    <Card className="h-full flex flex-col border-white/20 bg-background/60 backdrop-blur-xl shadow-xl overflow-hidden">
+    <Card className="h-full flex flex-col border-border/50 bg-background/60 backdrop-blur-xl shadow-xl overflow-hidden">
       <CardHeader className="p-4 border-b bg-background/50">
          <Tabs value={personality} onValueChange={(v: any) => setPersonality(v)} className="w-full">
             <TabsList className="grid w-full grid-cols-3">

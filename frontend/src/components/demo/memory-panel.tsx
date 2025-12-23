@@ -24,7 +24,7 @@ export function MemoryPanel() {
   }
 
   return (
-    <Card className="h-full flex flex-col border-white/20 bg-background/60 backdrop-blur-xl shadow-xl">
+    <Card className="h-full flex flex-col border-border/50 bg-background/60 backdrop-blur-xl shadow-xl">
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Brain className="h-5 w-5 text-violet-500" />
@@ -62,7 +62,7 @@ export function MemoryPanel() {
             <FadeInStagger className="space-y-6">
               <FadeInItem>
                 <div className="space-y-2">
-                    <h4 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">Preferences</h4>
+                    <h4 className="text-sm font-bold text-foreground/80 uppercase tracking-wider">Preferences</h4>
                     <div className="flex flex-wrap gap-2">
                         {memory.preferences.map((item, i) => (
                             <Badge key={i} variant="secondary" className="px-3 py-1 text-sm bg-violet-100 dark:bg-violet-900/30 text-violet-700 dark:text-violet-300 border-violet-200 dark:border-violet-800">
@@ -75,7 +75,7 @@ export function MemoryPanel() {
 
               <FadeInItem>
                 <div className="space-y-2">
-                    <h4 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">Emotional Patterns</h4>
+                    <h4 className="text-sm font-bold text-foreground/80 uppercase tracking-wider">Emotional Patterns</h4>
                     <div className="flex flex-wrap gap-2">
                          {memory.emotional_patterns.map((item, i) => (
                             <Badge key={i} variant="secondary" className="px-3 py-1 text-sm bg-pink-100 dark:bg-pink-900/30 text-pink-700 dark:text-pink-300 border-pink-200 dark:border-pink-800">
@@ -88,13 +88,15 @@ export function MemoryPanel() {
 
               <FadeInItem>
                 <div className="space-y-2">
-                    <h4 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">Facts</h4>
+                    <h4 className="text-sm font-bold text-foreground/80 uppercase tracking-wider">Facts</h4>
                     <div className="space-y-2">
-                        {memory.facts.map((item, i) => (
-                            <div key={i} className="bg-muted/50 p-2 rounded-md text-sm border border-border/50">
+                        {memory.facts.length > 0 ? memory.facts.map((item, i) => (
+                            <div key={i} className="bg-muted/70 p-3 rounded-md text-sm border border-border/60 text-foreground/90 font-medium">
                                 {item}
                             </div>
-                        ))}
+                        )) : (
+                            <div className="text-sm text-muted-foreground italic px-2">No specific facts extracted yet.</div>
+                        )}
                     </div>
                 </div>
               </FadeInItem>

@@ -28,16 +28,16 @@ export default function DemoPage() {
       </header>
       
       {/* Main Content */}
-      <main className="flex-1 container mx-auto pt-24 pb-8 px-4 h-screen flex flex-col md:flex-row gap-6">
+      <main className="flex-1 container mx-auto pt-24 pb-8 px-4 flex flex-col md:flex-row gap-6 md:h-[calc(100vh-2rem)]">
         {/* Left Panel: Memory */}
-        <div className="w-full md:w-1/3 min-h-[300px] h-[40vh] md:h-full">
+        <div className="w-full md:w-1/3 h-auto min-h-[400px] md:h-full flex flex-col">
             <FadeIn delay={0.2} className="h-full">
                 <MemoryPanel />
             </FadeIn>
         </div>
 
         {/* Right Panel: Chat */}
-        <div className="w-full md:w-2/3 min-h-[500px] h-[50vh] md:h-full">
+        <div className="w-full md:w-2/3 h-[600px] md:h-full flex flex-col">
             <FadeIn delay={0.4} className="h-full">
                 <ChatInterface />
             </FadeIn>
